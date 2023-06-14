@@ -2,7 +2,7 @@ fx_version 'cerulean'
 
 game 'gta5'
 
-name 'vue-boilerplate'
+name 'core'
 
 client_script 'dist/client/*.client.js'
 

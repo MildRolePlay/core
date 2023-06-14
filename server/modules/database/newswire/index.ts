@@ -1,0 +1,1 @@
+export {NewswireRepository, _NewswireRepo} from './classe';
