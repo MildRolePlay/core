@@ -1,4 +1,42 @@
-# Configuration server.cfg
+# MildRoleplay Core resource
+
+- [MildRoleplay Core resource](#mildroleplay-core-resource)
+  - [Documentation server-side](#documentation-server-side)
+  - [Newswire](#newswire)
+    - [Object:](#object)
+    - [Exports:](#exports)
+        - [fetchNewswire](#fetchnewswire)
+  - [Configuration server.cfg](#configuration-servercfg)
+
+
+## Documentation server-side
+---
+
+##  Newswire
+
+### Object:
+
+```ts
+    type NewswireObject = {
+        id: number,
+        title: string,
+        image: string,
+        thumb: string,
+        content: string,
+        createdAt: number,
+        updatedAt: number,
+        inGame: boolean
+    }
+```
+
+### Exports:
+
+##### fetchNewswire
+```ts
+    global.exports.core.fetchNewswire(): Promise<NewswireObject[]>
+```
+
+## Configuration server.cfg
 
 ---
 
