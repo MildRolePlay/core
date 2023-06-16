@@ -12,4 +12,7 @@ on('onClientResourceStart', (resource: string) => {
 on('client:loadingscreen:loaded', () => {
     emit(HUD_EVENTS.CLIENT_HIDE);
     emitNet(generateEventName('loadingscreen:passed', true));
+
+    NetworkSetFriendlyFireOption(true);
+    SetCanAttackFriendly(GetPlayerPed(-1), true, true);
 });
