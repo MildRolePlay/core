@@ -12,7 +12,7 @@ class _AccountRepo {
     }
 
     public async create(data: Omit<AccountDto, 'id'|'createdAt'|'updatedAt'|'cgu'>): Promise<AccountDto> {
-        const result = await this.db.insert<AccountDto>(`INSERT INTO \`${this.tableName}\` (pseudo, password, cgu, createdAt, updatedAt) VALUES (?, ?, DATE(NOW()), DATE(NOW()), DATE(NOW()))`, [data.pseudo, data.password]);
+        const result = await this.db.insert<AccountDto>(`INSERT INTO \`${this.tableName}\` (pseudo, password, cgu, createdAt, updatedAt) VALUES (?, ?, NOW(), NOW(), NOW())`, [data.pseudo, data.password]);
         return result;
     }
 }
