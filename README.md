@@ -63,7 +63,7 @@
 #### Player:
 ```ts
     class Player {
-        private accountId: number;
+        public accountId: number;
         public pseudo: string;
         
         constructor(readonly source: number, pseudo: string, accountId: number) {};
@@ -79,8 +79,8 @@
 
 
         public add(player: Player): void {}
-
         public remove(playerOrSource: Player|number): boolean {}
+        public find(source: number): Player|undefined
     }
 ```
 

@@ -15,6 +15,10 @@ class _AccountRepo {
         const result = await this.db.insert<AccountDto>(`INSERT INTO \`${this.tableName}\` (pseudo, password, cgu, createdAt, updatedAt) VALUES (?, ?, NOW(), NOW(), NOW())`, [data.pseudo, data.password]);
         return result;
     }
+
+    public async save(data: Pick<AccountDto, 'id'>): Promise<void> {
+        await this.db.update(`UPDATE \`${this.tableName}\` SET updatedAt = NOW() WHERE id = ?`, [data.id])
+    }
 }
 
 export const AccountRepository = new _AccountRepo();

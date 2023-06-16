@@ -1,5 +1,5 @@
 export class Player {
-    private accountId: number;
+    public accountId: number;
     public pseudo: string;
     
     constructor(readonly source: number, pseudo: string, accountId: number) {
@@ -27,6 +27,10 @@ class _Players {
 
         this.players.splice(index, 1);
         return true;
+    }
+
+    public find(source: number): Player|undefined {
+        return this.players.find((p) => p.source == source);
     }
 }
 
