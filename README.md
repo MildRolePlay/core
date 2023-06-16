@@ -1,10 +1,13 @@
 # MildRoleplay Core resource
 
 - [MildRoleplay Core resource](#mildroleplay-core-resource)
-  - [Documentation server-side](#documentation-server-side)
+- [Documentation client-side](#documentation-client-side)
+  - [Streamer](#streamer)
+    - [Exports](#exports)
+- [Documentation server-side](#documentation-server-side)
   - [Newswire](#newswire)
     - [Object:](#object)
-    - [Exports:](#exports)
+    - [Exports:](#exports-1)
         - [fetchNewswire](#fetchnewswire)
   - [Player](#player)
     - [Classe:](#classe)
@@ -15,8 +18,16 @@
       - [Evenements attendu:](#evenements-attendu)
   - [Configuration server.cfg](#configuration-servercfg)
 
+# Documentation client-side
+--
+## Streamer
 
-## Documentation server-side
+### Exports
+```ts
+    globalThis.exports.core.requestModel(model: number|string, onLoaded: (model: string) => void): Promise<void>
+```
+
+# Documentation server-side
 ---
 
 ##  Newswire
