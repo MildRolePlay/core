@@ -6,6 +6,13 @@
     - [Object:](#object)
     - [Exports:](#exports)
         - [fetchNewswire](#fetchnewswire)
+  - [Player](#player)
+    - [Classe:](#classe)
+      - [Player:](#player-1)
+      - [Players:](#players)
+    - [Evenements:](#evenements)
+      - [Evenement emits:](#evenement-emits)
+      - [Evenements attendu:](#evenements-attendu)
   - [Configuration server.cfg](#configuration-servercfg)
 
 
@@ -35,6 +42,53 @@
 ```ts
     global.exports.core.fetchNewswire(): Promise<NewswireObject[]>
 ```
+
+---
+## Player
+---
+
+### Classe:
+
+#### Player:
+```ts
+    class Player {
+        private accountId: number;
+        public pseudo: string;
+        
+        constructor(readonly source: number, pseudo: string, accountId: number) {};
+    };
+```
+
+#### Players:
+```ts
+    class _Players {
+        public players: Player[] = [];
+
+        constructor() {}
+
+
+        public add(player: Player): void {}
+
+        public remove(playerOrSource: Player|number): boolean {}
+    }
+```
+
+---
+### Evenements:
+#### Evenement emits:
+| Nom                              |                              Argument                               |                              Résultat attendu |
+| :------------------------------- | :-----------------------------------------------------------------: | --------------------------------------------: |
+| client:core:auth:request         |                                 N/A                                 | Ouverture du formulaire inscription/connexion |
+| client:core:auth:login:response  | [`success: boolean`, `errorType: string?`, `errorContent: string?`] |                                           N/A |
+| client:core:auth:signin:response |               [`success: boolean`, `error: string?`]                |                                           N/A |
+
+#### Evenements attendu:
+
+| Nom                     |                            Argument                            |            Résultat attendu |
+| :---------------------- | :------------------------------------------------------------: | --------------------------: |
+| server:core:auth:login  |             [`pseudo: string`,`password: string`]              | ID de connexion a un compte |
+| server:core:auth:signin | [`pseudo: string`, `password: string`, `confirmation: string`] | ID de connexion a un compte |
+
 
 ## Configuration server.cfg
 
