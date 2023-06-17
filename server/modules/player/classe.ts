@@ -1,11 +1,29 @@
+import { Character } from '../../modules/character/class';
+import { setRoutingBucket } from './functions/setRoutingBucket';
+
 export class Player {
     public accountId: number;
     public pseudo: string;
+
+    public character: Character;
     
     constructor(readonly source: number, pseudo: string, accountId: number) {
         this.pseudo = pseudo;
         this.accountId = accountId;
     };
+
+    public addCharacter(character: Character) {
+        this.character = character;
+    }
+
+    public setRoutingBucket(bucket: number): void {
+        if(bucket == 0) {
+            setRoutingBucket(this.source, 0, true, true);
+            return;
+        }
+
+        setRoutingBucket(this.source, bucket, false, false);
+    }
 };
 
 class _Players {
