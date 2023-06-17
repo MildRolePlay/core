@@ -1,5 +1,5 @@
+import { HUDManager } from "../../modules/hud";
 import { generateEventName } from "../../utils";
-import HUD_EVENTS from '../hud/events';
 
 on('onClientResourceStart', (resource: string) => {
     if(resource !== GetCurrentResourceName()) {
@@ -10,7 +10,8 @@ on('onClientResourceStart', (resource: string) => {
 });
 
 on('client:loadingscreen:loaded', () => {
-    emit(HUD_EVENTS.CLIENT_HIDE);
+    HUDManager.displayServerHud(false);
+
     emitNet(generateEventName('loadingscreen:passed', true));
 
     NetworkSetFriendlyFireOption(true);
