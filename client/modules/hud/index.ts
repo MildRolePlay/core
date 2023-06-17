@@ -46,4 +46,8 @@ class HUD {
 
 export const HUDManager = new HUD();
 
-globalThis.exports('getHUDObject', () => HUDManager);
+globalThis.exports('HUDDisplayMinimap', (toggle: boolean) => HUDManager.displayMinimap(toggle));
+globalThis.exports('HUDDisplayServerHud', (toggle: boolean) => HUDManager.displayServerHud(toggle));
+
+globalThis.exports('HUDHasMinimap', () => HUDManager.minimap);
+globalThis.exports('HUDHasServerHud', () => HUDManager.serverHud);
