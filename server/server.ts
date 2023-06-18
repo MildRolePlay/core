@@ -1,5 +1,6 @@
 import './modules/newswire';
 import './modules/player';
+import './modules/clothing';
 
 on('onResourceStart', async (resource: string) => {
     if(resource === GetCurrentResourceName()) {
