@@ -1,5 +1,6 @@
 import { oxmysql } from "@overextended/oxmysql";
 import { ClothesGroupsDB } from "./dts/clothes-groups.dto";
+import { Clothes } from "../../../modules/clothing/class";
 
 class _ClotheGroup {
 
@@ -27,6 +28,17 @@ class _ClotheGroup {
         });
 
         return this.clothesGroup;
+    }
+
+    public async create(clothe: ClothesGroupsDB) {
+        clothe.id = await this.db.insert(`INSERT INTO \`${this.groupTableName}\` (name, type, gender, isCreateCharacterAvailable, price, createdAt, updatedAt) VALUES (?, ?, ?, ?, ?, NOW(), NOW())`, [clothe.name, clothe.type, clothe.gender, clothe.isCreateCharacterAvailable, clothe.price]);
+        
+        clothe.clothes.forEach(async (c) => {
+            c.id = await this.db.insert(`INSERT INTO \`${this.clotheTableName}\` (groupId, type, draw, texture, palette) VALUES (?, ?, ?, ?, ?)`, [clothe.id, c.type, c.draw, c.texture, c.palette])
+        });
+
+        this.clothesGroup.push(clothe);
+        Clothes.appendClothe(clothe);
     }
 
     private findGroupIndex(groupId: number): number {

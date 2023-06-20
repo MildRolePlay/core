@@ -7,6 +7,12 @@ class _Clothes {
         this.clothes = clothes;
     }
 
+    public appendClothe(clothe: ClothesGroupsDB) {
+        this.clothes.push(clothe);
+
+        console.log(this.clothes);
+    }
+
     public findAllClothesByType(type: ClotheGroupType, gender: boolean, isCreateCharacter: boolean = false): ClothesGroupsDB[] {
         return this.clothes.filter((c) => c.type === type && c.gender == gender && isCreateCharacter == isCreateCharacter)
     }
