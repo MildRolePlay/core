@@ -1,3 +1,5 @@
+import { Delay } from "../../utils";
+
 const hidenComponent = [1,2,3,4,5,10,11,12,13,15,17,18,141];
 
 class HUD {
@@ -34,13 +36,18 @@ class HUD {
     }
 
     onTick() {
-        BeginScaleformMovieMethod(this.minimapScaleform, "SETUP_HEALTH_ARMOUR")
-        ScaleformMovieMethodAddParamInt(3)
-        EndScaleformMovieMethod()
-        
         hidenComponent.forEach((c) => {
             HideHudComponentThisFrame(c);
-        })
+        });
+
+        //const minimap = RequestScaleformMovie('minimap');
+
+        SetRadarBigmapEnabled(false, true);
+        //SetRadarBigmapEnabled(false, false);
+
+        BeginScaleformMovieMethod(1, 'SETUP_HEALTH_ARMOUR');
+        ScaleformMovieMethodAddParamInt(3);
+        EndScaleformMovieMethod();
     }
 }
 

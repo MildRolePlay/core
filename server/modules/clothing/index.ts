@@ -9,3 +9,14 @@ on('onResourceStart', async (resource: string) => {
         console.log(`[Clothes] initialized ${clothes.length}`)
     }
 });
+
+onNet('client:clothes:fetch', () => {
+    const s = source;
+
+    const clothes = {male: Clothes.find(false, true), female: Clothes.find(true, true)};
+    emitNet('server:clothes:responseList', s, JSON.stringify(clothes));
+});
+
+onNet('client:clothes:apply', (id: number) => {
+    Clothes.applyPedClothe(source, id);
+});

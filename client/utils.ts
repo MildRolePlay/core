@@ -1,4 +1,4 @@
-export const Delay = async (time: number) => new Promise<void>((resolve) => setTimeout(() => resolve(), time));
+export const Delay = (ms: number) => new Promise(res => setTimeout(res, ms));
 
 export function onNUI<T extends any>(event: string, callback: (data: T) => void): void {
     RegisterNuiCallbackType(event);

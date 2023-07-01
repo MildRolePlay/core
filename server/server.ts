@@ -1,6 +1,9 @@
 import './modules/newswire';
 import './modules/player';
 import './modules/clothing';
+import './modules/character'
+
+import './modules/admin';
 
 on('onResourceStart', async (resource: string) => {
     if(resource === GetCurrentResourceName()) {

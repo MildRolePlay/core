@@ -9,7 +9,7 @@ class _ClotheGroup {
     constructor(private readonly groupTableName: string = "clothesgroups", private readonly clotheTableName: string = "clothes", private readonly db: typeof oxmysql = oxmysql) {}
 
     public async init(): Promise<ClothesGroupsDB[]> {
-        const result = await this.db.query<any[]>(`SELECT *, c.id as cid, cg.id AS cgid, cg.type AS cgtype, c.type AS ctype FROM \`${this.groupTableName}\` as cg LEFT JOIN \`${this.clotheTableName}\` as c ON cg.id = c.groupId ORDER BY cg.createdAt DESC`);
+        const result = await this.db.query<any[]>(`SELECT *, c.id as cid, cg.id AS cgid, cg.type AS cgtype, c.type AS ctype FROM \`${this.groupTableName}\` as cg LEFT JOIN \`${this.clotheTableName}\` as c ON cg.id = c.groupId ORDER BY cg.id ASC`);
 
         result.forEach((c) => {
             if(this.findGroupIndex(c.cgid) == -1) {

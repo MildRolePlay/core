@@ -19,14 +19,19 @@ class _Clothes {
 
     public applyPedClothe(source: number, clotheGroupId: number): void {
         const clothe = this.findByIndex(clotheGroupId);
+
+        if(!clothe) {
+            return;
+        }
         
         clothe.clothes.forEach((c) => {
             const apply = this.getApplyFunction(c.type);
             apply(GetPlayerPed(source.toString()), this.getApplyIndex(c.type), c.draw, c.texture, c.palette);
+            console.log(GetPlayerPed(source.toString()), this.getApplyIndex(c.type), c.draw, c.texture, c.palette)
         })
     }
 
-    private findByIndex(id: number): ClothesGroupsDB {
+    private findByIndex(id: number): ClothesGroupsDB|undefined {
         return this.clothes.find((c) => c.id == id);
     }
 

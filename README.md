@@ -4,29 +4,73 @@
 - [Documentation client-side](#documentation-client-side)
   - [Streamer](#streamer)
     - [Exports](#exports)
+  - [HUD](#hud)
+    - [Classe:](#classe)
+    - [Export:](#export)
 - [Documentation server-side](#documentation-server-side)
   - [Newswire](#newswire)
     - [Object:](#object)
     - [Exports:](#exports-1)
         - [fetchNewswire](#fetchnewswire)
-  - [Player](#player)
-    - [Classe:](#classe)
+  - [Player:](#player)
+    - [Classe:](#classe-1)
       - [Player:](#player-1)
       - [Players:](#players)
+    - [Exports:](#exports-2)
     - [Evenements:](#evenements)
       - [Evenement emits:](#evenement-emits)
       - [Evenements attendu:](#evenements-attendu)
+  - [Character:](#character)
+    - [Types:](#types)
+    - [Classe:](#classe-2)
+    - [Evenements:](#evenements-1)
+      - [Emits:](#emits)
+      - [Attendu:](#attendu)
   - [Configuration server.cfg](#configuration-servercfg)
 
 # Documentation client-side
---
+---
 ## Streamer
 
 ### Exports
 ```ts
     globalThis.exports.core.requestModel(model: number|string, onLoaded: (model: string) => void): Promise<void>
+    globalThis.exports.core.requestAnimDict(name: string): Promise<string>
+    globalThis.exports.core.requestAnimSet(name: string): Promise<string>
 ```
 
+---
+
+## HUD
+
+### Classe:
+```ts
+class HUD {
+    public minimap: boolean = true;
+
+    public chat: boolean = true;
+    public serverHud: boolean = true;
+
+    private tick: number;
+
+    private minimapScaleform: number;
+
+    constructor() {}
+    public displayMinimap(toggle: boolean) {}
+    public displayServerHud(toggle: boolean) {}
+}
+```
+
+### Export:
+
+```ts
+    globalThis.exports.core.HUDDisplayMinimap(toggle: boolean)
+    globalThis.exports.core.HUDDisplayServerHud(toggle: boolean)
+
+    globalThis.exports.core.HUDHasMinimap();
+    globalThis.exports.core.HUDHasServerHud();
+```
+---
 # Documentation server-side
 ---
 
@@ -55,8 +99,7 @@
 ```
 
 ---
-## Player
----
+## Player:
 
 ### Classe:
 
@@ -65,8 +108,13 @@
     class Player {
         public accountId: number;
         public pseudo: string;
+
+        public character: Character;
         
         constructor(readonly source: number, pseudo: string, accountId: number) {};
+
+        public addCharacter(character: Character): void {};
+        public setRoutingBucket(bucket: number): void {};
     };
 ```
 
@@ -84,7 +132,11 @@
     }
 ```
 
----
+### Exports:
+```ts
+    global.exports.core.GetPlayerObject(source: number): typeof Player
+```
+
 ### Evenements:
 #### Evenement emits:
 | Nom                              |                              Argument                               |                              Résultat attendu |
@@ -100,10 +152,72 @@
 | server:core:auth:login  |             [`pseudo: string`,`password: string`]              | ID de connexion a un compte |
 | server:core:auth:signin | [`pseudo: string`, `password: string`, `confirmation: string`] | ID de connexion a un compte |
 
+---
+## Character:
 
-## Configuration server.cfg
+### Types:
+
+```ts
+    interface CharacterDTO {
+        id: number,
+        accountId: number,
+        firstName: string,
+        lastName: string,
+        sexe: boolean,
+        birth: Date,
+        lastX: number,
+        lastY: number,
+        lastZ: number,
+        lastRot: number,
+        createdAt: Date,
+        updatedAt: Date
+    }
+
+    type CharacterInsertDB = Omit<CharacterDTO, 'id'|'lastX'|'lastY'|'lastZ'|'lastRot'|'createdAt'|'updatedAt'>
+```
+
+### Classe:
+
+```ts
+class Character {
+    public id: number;
+
+    public firstName: string;
+    public lastName: string;
+    public sexe: boolean;
+    public birth: Date;
+
+    public lastX: number;
+    public lastY: number;
+    public lastZ: number;
+    public lastRot: number;
+
+    public createdAt: Date;
+    public updatedAt: Date;
+
+    constructor(character: CharacterDTO) {}
+
+    public getLastPosition(): [number, number, number, number] {}
+}
+```
+
+### Evenements:
+#### Emits:
+| Nom                         |                      Argument                       |                         Résultat attendu |
+| :-------------------------- | :-------------------------------------------------: | ---------------------------------------: |
+| server:core:character:empty |                 [`source: number`]                  | Lancement de la création d'un personnage |
+| server:core:character:found | [`source: number`, `character: JSON<CharacterDTO>`] |             Initialisation du personnage |
+| client:core:character:init  |          [`character: JSON<CharacterDTO>`]          | Initialisation du personnage coté client |
+
+#### Attendu:
+| Nom                          |                        Argument                         |                              Résultat attendu |
+| :--------------------------- | :-----------------------------------------------------: | --------------------------------------------: |
+| server:core:character:create | [`source: number`,`character: JSON<CharacterInsertDB>`] | Création du personnage dans la base de donnée |
+| server:core:character:spawn  |                   [`source: number`]                    | Téléporte le personnage au point d'apparition |
 
 ---
+
+## Configuration server.cfg
 
 ```cfg
 # Only change the IP if you're using a server with multiple network interfaces, otherwise change the port only.
@@ -118,6 +232,7 @@ ensure rconlog
 
 ensure core
 ensure loadingscreen
+ensure auth
 
 # This allows players to use scripthook-based plugins such as the legacy Lambda Menu.
 # Set this to 1 to allow scripthook. Do note that this does _not_ guarantee players won't be able to use external plugins.
