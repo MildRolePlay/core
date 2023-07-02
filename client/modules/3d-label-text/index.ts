@@ -1,3 +1,5 @@
+import './manager.class';
+
 export const DrawText3D = (x: number, y: number, z: number, text: string): void => {
     const [screen, sx, sy] = GetScreenCoordFromWorldCoord(x, y, z);
     const [cx, cy, cz] = GetGameplayCamCoord();

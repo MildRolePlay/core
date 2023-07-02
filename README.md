@@ -7,16 +7,18 @@
   - [HUD](#hud)
     - [Classe:](#classe)
     - [Export:](#export)
+  - [3DTextLabel](#3dtextlabel)
+    - [Exports:](#exports-1)
 - [Documentation server-side](#documentation-server-side)
   - [Newswire](#newswire)
     - [Object:](#object)
-    - [Exports:](#exports-1)
+    - [Exports:](#exports-2)
         - [fetchNewswire](#fetchnewswire)
   - [Player:](#player)
     - [Classe:](#classe-1)
       - [Player:](#player-1)
       - [Players:](#players)
-    - [Exports:](#exports-2)
+    - [Exports:](#exports-3)
     - [Evenements:](#evenements)
       - [Evenement emits:](#evenement-emits)
       - [Evenements attendu:](#evenements-attendu)
@@ -71,6 +73,16 @@ class HUD {
     globalThis.exports.core.HUDHasMinimap();
     globalThis.exports.core.HUDHasServerHud();
     globalThis.exports.core.HUDHasPlayerLabel();
+```
+
+---
+## 3DTextLabel
+
+### Exports:
+```ts
+    globalThis.exports.core.Create3DTextLabel(uid: string, x: number, y: number, z: number, range: number, vw: number, text: string): string
+    globalThis.exports.core.Remove3DTextLabel(uid: string): boolean
+    globalThis.exports.core.Update3DTextLabel(uid: string, text: string): boolean
 ```
 ---
 # Documentation server-side

@@ -42,10 +42,7 @@ class HUD {
             HideHudComponentThisFrame(c);
         });
 
-        //const minimap = RequestScaleformMovie('minimap');
-
         SetRadarBigmapEnabled(false, true);
-        //SetRadarBigmapEnabled(false, false);
 
         BeginScaleformMovieMethod(1, 'SETUP_HEALTH_ARMOUR');
         ScaleformMovieMethodAddParamInt(3);
