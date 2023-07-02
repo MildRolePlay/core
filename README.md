@@ -66,9 +66,11 @@ class HUD {
 ```ts
     globalThis.exports.core.HUDDisplayMinimap(toggle: boolean)
     globalThis.exports.core.HUDDisplayServerHud(toggle: boolean)
+    globalThis.exports.core.HUDDisplayPlayerLabel(toggle: boolean)
 
     globalThis.exports.core.HUDHasMinimap();
     globalThis.exports.core.HUDHasServerHud();
+    globalThis.exports.core.HUDHasPlayerLabel();
 ```
 ---
 # Documentation server-side

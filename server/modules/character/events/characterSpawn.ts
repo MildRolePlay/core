@@ -17,6 +17,8 @@ export const spawnCharacter = (source: number) => {
     SetEntityHeading(GetPlayerPed(src.toString()), player.character.lastRot);
 
     player.setRoutingBucket(0);
+    
+    Entity(GetPlayerPed(source.toString())).state.set('name', `${character.firstName} ${character.lastName}`, true);
 
     emitNet(EVENTS.spawned, src);
 }
