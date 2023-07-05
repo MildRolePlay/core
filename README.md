@@ -69,10 +69,12 @@ class HUD {
     globalThis.exports.core.HUDDisplayMinimap(toggle: boolean)
     globalThis.exports.core.HUDDisplayServerHud(toggle: boolean)
     globalThis.exports.core.HUDDisplayPlayerLabel(toggle: boolean)
+    globalThis.exports.core.HUDDisplayChat(toggle: boolean)
 
-    globalThis.exports.core.HUDHasMinimap();
-    globalThis.exports.core.HUDHasServerHud();
-    globalThis.exports.core.HUDHasPlayerLabel();
+    globalThis.exports.core.HUDHasMinimap(): boolean;
+    globalThis.exports.core.HUDHasServerHud(): boolean;
+    globalThis.exports.core.HUDHasPlayerLabel(): boolean;
+    globalThis.exports.core.HUDHasChat(): boolean;
 ```
 
 ---

@@ -11,6 +11,8 @@ on('onClientResourceStart', (resource: string) => {
 
 on('client:loadingscreen:loaded', () => {
     HUDManager.displayServerHud(false);
+    HUDManager.displayChat(false);
+    HUDManager.displayMinimap(false);
 
     emitNet(generateEventName('loadingscreen:passed', true));
 
