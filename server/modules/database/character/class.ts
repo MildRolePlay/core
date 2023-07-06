@@ -1,5 +1,6 @@
 import { oxmysql } from "@overextended/oxmysql";
 import { CharacterDTO } from "./type";
+import { Character } from "../../character/class";
 
 class _CharacterRepo {
     constructor(private readonly tableName: string = 'characters', private readonly db: typeof oxmysql = oxmysql) {}
@@ -13,6 +14,16 @@ class _CharacterRepo {
         const result = await this.db.insert(`INSERT INTO \`${this.tableName}\` (accountId, firstName, lastName, sexe, birth, lastX, lastY, lastZ, lastRot, createdAt, updatedAt) VALUES
                                             (?, ?, ?, ?, ?, 0, 0, 0, 0, NOW(), NOW())`, [character.accountId, character.firstName, character.lastName, character.sexe, character.birth]);
         return result;
+    }
+
+    public async save(character: Character): Promise<void> {
+        await this.db.update(`UPDATE \`${this.tableName}\` SET 
+                                                                lastX = ?, 
+                                                                lastY = ?, 
+                                                                lastZ = ?, 
+                                                                lastRot = ?,
+                                                                updatedAt = NOW()
+                                                                WHERE id = ?`, [character.lastX, character.lastY, character.lastZ, character.lastRot, character.id]);
     }
 }
 
